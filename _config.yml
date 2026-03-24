@@ -1,7 +1,7 @@
 title: "Blue Horizon Squadron"
 tagline: "Fly High. Fight Hard. Fly Together."
 description: >-
-  Blue Horizon Squadron is an DCS (Digital Combat Simulator) virtual
+  Blue Horizon Squadron is a DCS (Digital Combat Simulator) virtual
   squadron dedicated to casual semi-milsim, team-based air combat operations.
   Join us for regular operations, training sessions, and community events.
 
@@ -11,7 +11,7 @@ baseurl: ""
 # Squadron Info
 squadron:
   name: "607 Virtual Fighter Wing - Blue Horizon Squadron"
-  short_name: "607"
+  short_name: "BHS"
   designation: "607-VFW"
   founded: "2024"
   motto: "Fly High. Fight Hard. Fly Together."
