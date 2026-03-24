@@ -1,0 +1,98 @@
+// ===========================
+// Discord Section
+// ===========================
+
+.discord-section {
+  background: linear-gradient(135deg, rgba($color-discord, 0.08) 0%, rgba($color-bg-secondary, 0) 100%);
+  border-top: 1px solid rgba($color-discord, 0.2);
+  border-bottom: 1px solid rgba($color-discord, 0.2);
+}
+
+.discord-cta {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: $spacing-2xl;
+  align-items: center;
+
+  @media (max-width: $bp-lg) {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  &__content {
+    h2 { margin-bottom: $spacing-sm; }
+    p  { color: $color-text-muted; max-width: 560px; }
+
+    @media (max-width: $bp-lg) {
+      p { margin: 0 auto $spacing-lg; }
+    }
+  }
+
+  &__icon {
+    font-size: 2rem;
+    color: $color-discord;
+    margin-bottom: $spacing-sm;
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+
+    svg { width: 2rem; height: 2rem; fill: $color-discord; }
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+    align-items: flex-end;
+
+    @media (max-width: $bp-lg) {
+      align-items: center;
+    }
+  }
+
+  &__note {
+    font-size: 0.8rem;
+    color: $color-text-muted;
+    text-align: center;
+  }
+}
+
+// Discord widget embed
+.discord-widget-wrap {
+  border-radius: $border-radius-lg;
+  overflow: hidden;
+  border: 1px solid rgba($color-discord, 0.3);
+  box-shadow: $shadow-lg;
+  background: #36393f;
+  max-width: 360px;
+
+  iframe {
+    display: block;
+    width: 100%;
+  }
+}
+
+.discord-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: $spacing-md;
+  margin-top: $spacing-xl;
+}
+
+.discord-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-md;
+  padding: $spacing-md;
+  background: rgba($color-discord, 0.07);
+  border: 1px solid rgba($color-discord, 0.15);
+  border-radius: $border-radius;
+
+  &__icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  h4 { font-size: 0.95rem; margin-bottom: 4px; color: $color-text-heading; }
+  p  { font-size: 0.82rem; color: $color-text-muted; margin: 0; }
+}

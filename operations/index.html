@@ -1,0 +1,288 @@
+---
+layout: default
+title: Operations
+description: "Upcoming Blue Horizon Squadron operations. Register for missions, choose your role and aircraft."
+extra_js:
+  - /assets/js/operations.js
+---
+
+<div class="page-header">
+  <div class="container">
+    <h1>Operations</h1>
+    <p class="page-header__subtitle">Register for upcoming missions · Choose your role · Fly with the squadron</p>
+  </div>
+</div>
+
+<div class="container" style="padding-bottom: 80px;">
+
+  <!-- Filter bar -->
+  <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:32px;">
+    <span style="font-size:.85rem; color:#8b949e; text-transform:uppercase; letter-spacing:.08em;">Filter:</span>
+    <button class="btn btn--secondary btn--sm filter-btn active" data-filter="all">All</button>
+    <button class="btn btn--secondary btn--sm filter-btn" data-filter="upcoming">Upcoming</button>
+    <button class="btn btn--secondary btn--sm filter-btn" data-filter="planning">Planning</button>
+    <button class="btn btn--secondary btn--sm filter-btn" data-filter="active">Active</button>
+    <button class="btn btn--secondary btn--sm filter-btn" data-filter="completed">Completed</button>
+  </div>
+
+  <div class="operations-grid" id="ops-list">
+    {% for op in site.data.operations %}
+    <div class="op-card" data-status="{{ op.status }}" id="{{ op.id }}">
+
+      <div class="op-card__header">
+        <div class="op-card__title-area">
+          <div class="op-card__codename">{{ op.codename }}</div>
+          <h2 class="op-card__title">{{ op.title }}</h2>
+          <div class="op-card__theater">📍 {{ op.theater }} · {{ op.map }}</div>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
+          {% if op.status == 'upcoming'  %}<span class="badge badge--primary">Upcoming</span>{% endif %}
+          {% if op.status == 'active'    %}<span class="badge badge--green">Active</span>{% endif %}
+          {% if op.status == 'planning'  %}<span class="badge badge--gold">Planning</span>{% endif %}
+          {% if op.status == 'completed' %}<span class="badge badge--muted">Completed</span>{% endif %}
+          {% if op.status == 'cancelled' %}<span class="badge badge--red">Cancelled</span>{% endif %}
+          {% if op.patch_image %}
+          <img src="{{ op.patch_image }}"
+               alt="{{ op.codename }} patch"
+               style="width:64px; height:64px; object-fit:contain; border-radius:50%; opacity:.9;"
+               loading="lazy">
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="op-card__body">
+        <div class="op-card__info">
+          <p class="op-card__description">{{ op.description }}</p>
+
+          <ul class="op-card__meta-list">
+            <li class="op-card__meta-item"><span class="icon">📅</span> Date: <strong>{{ op.date }}</strong></li>
+            <li class="op-card__meta-item"><span class="icon">🕐</span> Time: <strong>{{ op.time }}</strong></li>
+            <li class="op-card__meta-item"><span class="icon">⏱</span> Duration: {{ op.duration }}</li>
+            <li class="op-card__meta-item"><span class="icon">⚡</span> Difficulty: {{ op.difficulty }}</li>
+            <li class="op-card__meta-item"><span class="icon">🗺</span> Map: {{ op.map }}</li>
+          </ul>
+
+          <!-- Objectives -->
+          <div style="margin-bottom:16px;">
+            <div style="font-size:.8rem; color:#8b949e; text-transform:uppercase; letter-spacing:.08em; margin-bottom:8px;">Mission Objectives</div>
+            <ul style="list-style:none; padding:0; margin:0;">
+              {% for obj in op.objectives %}
+              <li style="display:flex; gap:8px; align-items:flex-start; font-size:.9rem; color:#c9d1d9; margin-bottom:4px;">
+                <span style="color:#2d9cdb; flex-shrink:0;">▸</span> {{ obj }}
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <!-- Available roles -->
+          <div>
+            <div style="font-size:.8rem; color:#8b949e; text-transform:uppercase; letter-spacing:.08em; margin-bottom:8px;">Available Roles</div>
+            <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap:8px;">
+              {% for role in op.roles %}
+              {% assign role_pct = role.filled | times: 100 | divided_by: role.slots %}
+              <div style="background:#0d1117; border:1px solid {% if role.filled >= role.slots %}rgba(215,58,73,.4){% else %}#30363d{% endif %}; border-radius:6px; padding:10px 12px;">
+                <div style="font-size:.85rem; font-weight:600; color:{% if role.filled >= role.slots %}#d73a49{% else %}#f0f6fc{% endif %}; margin-bottom:2px;">{{ role.name }}</div>
+                <div style="font-size:.78rem; color:#8b949e; margin-bottom:4px;">{{ role.aircraft }}</div>
+                <div style="font-size:.75rem; color:{% if role.filled >= role.slots %}#d73a49{% else %}#2d9cdb{% endif %};">
+                  {% if role.filled >= role.slots %}
+                  🔴 FULL ({{ role.filled }}/{{ role.slots }})
+                  {% else %}
+                  {% assign role_open = role.slots | minus: role.filled %}
+                  🟢 {{ role_open }} slot{% if role_open != 1 %}s{% endif %} open
+                  {% endif %}
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+
+          <!-- Slots bar -->
+          <div class="op-card__slots" style="margin-top:16px;">
+            {% assign pct = op.slots_filled | times: 100 | divided_by: op.slots_total %}
+            <div class="op-card__slots-label">Overall registration ({{ op.slots_filled }}/{{ op.slots_total }} pilots)</div>
+            <div class="op-card__slots-bar">
+              <div class="op-card__slots-fill{% if pct >= 100 %} full{% elsif pct >= 80 %} almost{% endif %}"
+                   style="width:{{ pct }}%"></div>
+            </div>
+            {% assign slots_remaining = op.slots_total | minus: op.slots_filled %}
+            <div class="op-card__slots-text">{{ slots_remaining }} slot{% if slots_remaining != 1 %}s{% endif %} remaining</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="op-card__footer">
+        <div class="op-card__footer-left">
+          {% for tag in op.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
+        </div>
+        {% if op.status == 'upcoming' or op.status == 'active' or op.status == 'planning' %}
+        {% assign total_remaining = op.slots_total | minus: op.slots_filled %}
+        {% if total_remaining > 0 %}
+        <button class="btn btn--primary js-register-btn"
+                data-op-id="{{ op.id }}"
+                data-op-codename="{{ op.codename | escape }}"
+                data-op-title="{{ op.title | escape }}"
+                data-op-roles="{{ op.roles | jsonify | escape }}"
+                aria-label="Register for {{ op.title }}">
+          📋 Register for this Operation
+        </button>
+        {% else %}
+        <button class="btn btn--danger" disabled aria-disabled="true">
+          🔴 Operation Full
+        </button>
+        {% endif %}
+        {% endif %}
+        {% if op.status == 'completed' %}
+        <span class="badge badge--muted">Operation Concluded</span>
+        {% endif %}
+      </div>
+
+    </div><!-- /.op-card -->
+    {% endfor %}
+  </div><!-- /#ops-list -->
+
+</div><!-- /.container -->
+
+
+<!-- ============================================================
+     REGISTRATION MODAL
+     ============================================================ -->
+<div class="modal-overlay" id="reg-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal" id="modal-box">
+
+    <div class="modal__header">
+      <h3 class="modal__title" id="modal-title">Register for Operation</h3>
+      <button class="modal__close" id="modal-close" aria-label="Close registration form">×</button>
+    </div>
+
+    <div class="modal__body">
+      <!-- Op info summary -->
+      <div id="modal-op-info" style="background:#0d1117; border:1px solid #30363d; border-radius:6px; padding:12px 16px; margin-bottom:24px;">
+        <div id="modal-op-codename" style="font-size:.75rem; color:#2d9cdb; text-transform:uppercase; letter-spacing:.12em; margin-bottom:2px;"></div>
+        <div id="modal-op-title" style="font-weight:700; color:#f0f6fc;"></div>
+      </div>
+
+      <form id="reg-form" novalidate>
+        <input type="hidden" id="reg-op-id" name="operation_id">
+        <input type="hidden" id="reg-op-name" name="operation_name">
+
+        <!-- Discord username -->
+        <div class="form-group">
+          <label for="reg-discord">
+            Discord Username <span class="required">*</span>
+          </label>
+          <input type="text"
+                 id="reg-discord"
+                 name="discord_username"
+                 class="form-control"
+                 placeholder="e.g. callsign#1234 or callsign"
+                 autocomplete="off"
+                 required>
+          <p class="form-hint">Your Discord username so we can send you the briefing package.</p>
+        </div>
+
+        <!-- Callsign -->
+        <div class="form-group">
+          <label for="reg-callsign">
+            Callsign / Pilot Name <span class="required">*</span>
+          </label>
+          <input type="text"
+                 id="reg-callsign"
+                 name="callsign"
+                 class="form-control"
+                 placeholder="e.g. VIPER 1-1"
+                 required>
+        </div>
+
+        <!-- Role selection -->
+        <div class="form-group">
+          <label>Preferred Role <span class="required">*</span></label>
+          <div id="role-selector" class="role-grid">
+            <!-- Populated by JS -->
+          </div>
+          <input type="hidden" id="reg-role" name="role" required>
+        </div>
+
+        <!-- Aircraft -->
+        <div class="form-group">
+          <label for="reg-aircraft">Aircraft Module <span class="required">*</span></label>
+          <select id="reg-aircraft" name="aircraft" class="form-control" required>
+            <option value="" disabled selected>Select your aircraft…</option>
+            <option>F/A-18C Hornet</option>
+            <option>F-16C Viper</option>
+            <option>F-14A/B Tomcat</option>
+            <option>A-10C II Warthog</option>
+            <option>AV-8B Harrier</option>
+            <option>F-15C Eagle</option>
+            <option>Su-27 Flanker</option>
+            <option>MiG-29 Fulcrum</option>
+            <option>Su-33 Flanker-D</option>
+            <option>Ka-50 Black Shark</option>
+            <option>Mi-24P Hind</option>
+            <option>UH-1H Huey</option>
+            <option>Other / Instructor</option>
+          </select>
+        </div>
+
+        <!-- Experience level -->
+        <div class="form-group">
+          <label for="reg-exp">Experience Level</label>
+          <select id="reg-exp" name="experience" class="form-control">
+            <option value="" disabled selected>Select your level…</option>
+            <option value="beginner">Beginner (new to DCS/squadron)</option>
+            <option value="intermediate">Intermediate (comfortable with module)</option>
+            <option value="advanced">Advanced (experienced in this role)</option>
+          </select>
+        </div>
+
+        <!-- Notes -->
+        <div class="form-group">
+          <label for="reg-notes">Notes / Availability</label>
+          <textarea id="reg-notes"
+                    name="notes"
+                    class="form-control"
+                    rows="3"
+                    placeholder="Any notes — e.g. timezone, module limitations, alternate role preference…"></textarea>
+        </div>
+
+        <!-- Discord notification opt-in -->
+        <div class="form-group">
+          <label class="form-check">
+            <input type="checkbox" id="reg-notify" name="notify" value="yes" checked>
+            <span class="form-check__label">Send me briefing details via Discord DM</span>
+          </label>
+        </div>
+
+        <!-- Error message area -->
+        <div id="form-error" class="alert alert--danger" style="display:none;"></div>
+      </form>
+    </div><!-- /.modal__body -->
+
+    <div class="modal__footer">
+      <button class="btn btn--secondary" id="modal-cancel">Cancel</button>
+      <button class="btn btn--primary" id="modal-submit" type="button">
+        <span id="submit-text">📋 Confirm Registration</span>
+        <span id="submit-loading" style="display:none;">⏳ Submitting…</span>
+      </button>
+    </div>
+
+  </div><!-- /.modal -->
+</div><!-- /.modal-overlay -->
+
+<!-- Success modal -->
+<div class="modal-overlay" id="success-modal" role="dialog" aria-modal="true" aria-labelledby="success-title">
+  <div class="modal" style="max-width:420px;">
+    <div class="modal__body">
+      <div class="reg-success">
+        <div class="reg-success__icon">✅</div>
+        <h3 id="success-title">You're Registered!</h3>
+        <p>Your registration has been submitted. Check your Discord for the full briefing package. See you in the skies, pilot!</p>
+        <div style="margin-top:24px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+          <a href="{{ site.squadron.discord_invite }}"
+             class="btn btn--discord"
+             target="_blank" rel="noopener noreferrer">Open Discord</a>
+          <button class="btn btn--secondary" id="success-close">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,193 @@
+// ===========================
+// Cards
+// ===========================
+
+// Generic card
+.card {
+  background: $color-bg-card;
+  border: 1px solid $color-border;
+  border-radius: $border-radius-lg;
+  overflow: hidden;
+  transition: transform $transition-normal, border-color $transition-normal, box-shadow $transition-normal;
+
+  &:hover {
+    transform: translateY(-3px);
+    border-color: rgba($color-accent, 0.35);
+    box-shadow: $shadow-md;
+  }
+
+  &__header {
+    padding: $spacing-lg $spacing-xl;
+    border-bottom: 1px solid $color-border;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $spacing-md;
+  }
+
+  &__body {
+    padding: $spacing-xl;
+  }
+
+  &__footer {
+    padding: $spacing-md $spacing-xl;
+    border-top: 1px solid $color-border;
+    background: rgba($color-bg, 0.3);
+  }
+}
+
+// News / post cards
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: $spacing-lg;
+}
+
+.post-card {
+  background: $color-bg-card;
+  border: 1px solid $color-border;
+  border-radius: $border-radius-lg;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform $transition-normal, border-color $transition-normal, box-shadow $transition-normal;
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: rgba($color-accent, 0.4);
+    box-shadow: $shadow-md;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    padding: $spacing-md $spacing-lg;
+    border-bottom: 1px solid $color-border;
+    font-size: 0.8rem;
+    color: $color-text-muted;
+  }
+
+  &__content {
+    padding: $spacing-lg;
+    flex: 1;
+  }
+
+  &__title {
+    font-size: 1.15rem;
+    margin-bottom: $spacing-sm;
+
+    a {
+      color: $color-text-heading;
+      text-decoration: none;
+
+      &:hover {
+        color: $color-accent;
+      }
+    }
+  }
+
+  &__excerpt {
+    color: $color-text-muted;
+    font-size: 0.9rem;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  &__footer {
+    padding: $spacing-md $spacing-lg;
+    border-top: 1px solid $color-border;
+  }
+}
+
+// Member card
+.member-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: $spacing-lg;
+}
+
+.member-card {
+  background: $color-bg-card;
+  border: 1px solid $color-border;
+  border-radius: $border-radius-lg;
+  padding: $spacing-xl $spacing-lg;
+  text-align: center;
+  transition: transform $transition-normal, border-color $transition-normal;
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: rgba($color-accent, 0.4);
+  }
+
+  &__avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, $color-primary, $color-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: $font-heading;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: $color-white;
+    margin: 0 auto $spacing-md;
+    border: 2px solid rgba($color-accent, 0.4);
+  }
+
+  &__name {
+    font-family: $font-heading;
+    font-size: 1.05rem;
+    color: $color-text-heading;
+    margin-bottom: 4px;
+  }
+
+  &__role {
+    font-size: 0.8rem;
+    color: $color-accent;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: $spacing-sm;
+  }
+
+  &__aircraft {
+    font-size: 0.85rem;
+    color: $color-text-muted;
+  }
+}
+
+// Stat row
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: $spacing-md;
+  margin: $spacing-xl 0;
+}
+
+.stat-box {
+  background: $color-bg-card;
+  border: 1px solid $color-border;
+  border-radius: $border-radius;
+  padding: $spacing-lg;
+  text-align: center;
+
+  &__value {
+    font-family: $font-heading;
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: $color-accent;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  &__label {
+    font-size: 0.78rem;
+    color: $color-text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+}

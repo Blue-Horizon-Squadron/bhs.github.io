@@ -1,0 +1,164 @@
+- id: op-001
+  codename: "OPERATION BLUE DAWN"
+  title: "Strike Package Alpha – Batumi Airfield Defense"
+  theater: "Caucasus"
+  map: "Caucasus"
+  status: "upcoming"
+  date: "2026-04-05"
+  time: "19:00 UTC"
+  duration: "2–3 hours"
+  difficulty: "Intermediate"
+  slots_total: 12
+  slots_filled: 7
+  description: >
+    Coalition forces must defend the Batumi airfield from an incoming enemy strike package. 
+    Fighter pilots will fly CAP while ground-attack aircraft conduct SEAD missions to clear the 
+    SAM envelope. Coordination with AWACS and tanker assets is essential.
+  objectives:
+    - "Establish and maintain CAP over Batumi"
+    - "Suppress enemy air defenses (SEAD)"
+    - "Intercept and defeat enemy strike aircraft"
+    - "Protect friendly ground forces"
+  roles:
+    - name: "Flight Lead (CAP)"
+      aircraft: "F/A-18C Hornet"
+      slots: 1
+      filled: 1
+    - name: "CAP Wingman"
+      aircraft: "F/A-18C Hornet"
+      slots: 3
+      filled: 2
+    - name: "SEAD"
+      aircraft: "F/A-18C Hornet"
+      slots: 2
+      filled: 1
+    - name: "Ground Attack"
+      aircraft: "A-10C II Warthog"
+      slots: 2
+      filled: 1
+    - name: "AWACS / GCI"
+      aircraft: "E-2C Hawkeye"
+      slots: 1
+      filled: 1
+    - name: "Tanker"
+      aircraft: "KC-135"
+      slots: 1
+      filled: 1
+    - name: "Reserve / Any"
+      aircraft: "Various"
+      slots: 2
+      filled: 0
+  patch_image: "https://github.com/user-attachments/assets/78e388bc-1729-4e2d-9e6e-0cbdda203928"
+  tags:
+    - "Caucasus"
+    - "Multi-Role"
+    - "SEAD"
+    - "CAP"
+
+- id: op-002
+  codename: "OPERATION GOLDEN STRIKE"
+  title: "Close Air Support – Tbilisi Corridor"
+  theater: "Caucasus"
+  map: "Caucasus"
+  status: "planning"
+  date: "2026-04-19"
+  time: "18:00 UTC"
+  duration: "2 hours"
+  difficulty: "Beginner Friendly"
+  slots_total: 8
+  slots_filled: 2
+  description: >
+    Coalition ground forces are advancing through the Tbilisi corridor and require close air support. 
+    A-10C pilots will provide CAS while F-16s escort and maintain air superiority. 
+    JTAC coordination required for all CAS runs.
+  objectives:
+    - "Provide close air support to advancing ground forces"
+    - "Maintain air superiority over the battle area"
+    - "Destroy enemy armor and artillery positions"
+  roles:
+    - name: "CAS Flight Lead"
+      aircraft: "A-10C II Warthog"
+      slots: 1
+      filled: 1
+    - name: "CAS Wingman"
+      aircraft: "A-10C II Warthog"
+      slots: 3
+      filled: 1
+    - name: "Escort"
+      aircraft: "F-16C Viper"
+      slots: 2
+      filled: 0
+    - name: "JTAC"
+      aircraft: "Ground"
+      slots: 1
+      filled: 0
+    - name: "Reserve / Any"
+      aircraft: "Various"
+      slots: 1
+      filled: 0
+  patch_image: "https://github.com/user-attachments/assets/0c2fcde1-4d2f-42de-a175-001202033111"
+  tags:
+    - "Caucasus"
+    - "CAS"
+    - "Beginner Friendly"
+
+- id: op-003
+  codename: "OPERATION IRON HORIZON"
+  title: "Carrier Strike Group – Persian Gulf Interdiction"
+  theater: "Persian Gulf"
+  map: "Persian Gulf"
+  status: "upcoming"
+  date: "2026-05-03"
+  time: "20:00 UTC"
+  duration: "3–4 hours"
+  difficulty: "Advanced"
+  slots_total: 16
+  slots_filled: 4
+  description: >
+    A carrier strike group will launch a coordinated interdiction campaign against enemy naval and 
+    coastal installations in the Persian Gulf. Multiple aircraft types and complex coordination 
+    required. Expect AAA and SAM threats throughout the AO.
+  objectives:
+    - "Neutralize enemy coastal defense batteries"
+    - "Interdict enemy naval patrol vessels"
+    - "Suppress and destroy integrated air defense systems"
+    - "Conduct BDA passes post-strike"
+  roles:
+    - name: "Strike Lead"
+      aircraft: "F/A-18C Hornet"
+      slots: 1
+      filled: 1
+    - name: "Strike Package"
+      aircraft: "F/A-18C Hornet"
+      slots: 5
+      filled: 2
+    - name: "SEAD / DEAD"
+      aircraft: "F/A-18C Hornet"
+      slots: 2
+      filled: 0
+    - name: "Anti-Ship"
+      aircraft: "F/A-18C Hornet"
+      slots: 2
+      filled: 1
+    - name: "CAP / Escort"
+      aircraft: "F-14B Tomcat"
+      slots: 2
+      filled: 0
+    - name: "AWACS"
+      aircraft: "E-2C Hawkeye"
+      slots: 1
+      filled: 0
+    - name: "Tanker"
+      aircraft: "S-3B Viking"
+      slots: 1
+      filled: 0
+    - name: "Reserve"
+      aircraft: "Various"
+      slots: 2
+      filled: 0
+  patch_image: "https://github.com/user-attachments/assets/0a030e36-dc89-4cdf-a026-9d5ec07f4241"
+  tags:
+    - "Persian Gulf"
+    - "Carrier Ops"
+    - "Multi-Role"
+    - "Advanced"

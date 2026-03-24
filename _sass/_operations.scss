@@ -1,0 +1,464 @@
+// ===========================
+// Operations & Registration
+// ===========================
+
+.operations-grid {
+  display: grid;
+  gap: $spacing-lg;
+}
+
+.op-card {
+  background: $color-bg-card;
+  border: 1px solid $color-border;
+  border-radius: $border-radius-lg;
+  overflow: hidden;
+  transition: border-color $transition-normal, box-shadow $transition-normal;
+
+  &:hover {
+    border-color: rgba($color-accent, 0.4);
+    box-shadow: $shadow-md;
+  }
+
+  // Status indicator bar at top
+  &[data-status="active"]   { border-top: 3px solid $color-green; }
+  &[data-status="upcoming"] { border-top: 3px solid $color-accent; }
+  &[data-status="planning"] { border-top: 3px solid $color-gold; }
+  &[data-status="completed"]{ border-top: 3px solid $color-text-muted; }
+  &[data-status="cancelled"]{ border-top: 3px solid $color-red; }
+
+  &__header {
+    padding: $spacing-lg $spacing-xl;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: $spacing-md;
+    border-bottom: 1px solid $color-border;
+
+    @media (max-width: $bp-sm) {
+      flex-direction: column;
+    }
+  }
+
+  &__title-area {
+    flex: 1;
+  }
+
+  &__codename {
+    font-size: 0.75rem;
+    color: $color-accent;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 4px;
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: 1.4rem;
+    color: $color-text-heading;
+    margin-bottom: 4px;
+  }
+
+  &__theater {
+    font-size: 0.875rem;
+    color: $color-text-muted;
+  }
+
+  &__body {
+    padding: $spacing-xl;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: $spacing-xl;
+
+    @media (max-width: $bp-lg) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__info {
+    flex: 1;
+  }
+
+  &__description {
+    color: $color-text-muted;
+    font-size: 0.95rem;
+    margin-bottom: $spacing-lg;
+  }
+
+  &__meta-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: $spacing-sm;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 $spacing-lg;
+  }
+
+  &__meta-item {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    font-size: 0.875rem;
+    color: $color-text-muted;
+
+    .icon {
+      color: $color-accent;
+      flex-shrink: 0;
+    }
+
+    strong {
+      color: $color-text;
+    }
+  }
+
+  &__slots {
+    margin-top: $spacing-md;
+  }
+
+  &__slots-label {
+    font-size: 0.8rem;
+    color: $color-text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: $spacing-sm;
+  }
+
+  &__slots-bar {
+    height: 6px;
+    background: $color-bg;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 4px;
+  }
+
+  &__slots-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, $color-accent, $color-gold);
+    transition: width 0.4s ease;
+
+    &.full { background: $color-red; }
+    &.almost { background: $color-gold; }
+  }
+
+  &__slots-text {
+    font-size: 0.8rem;
+    color: $color-text-muted;
+  }
+
+  &__register {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+    align-items: flex-end;
+    min-width: 160px;
+
+    @media (max-width: $bp-lg) {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    @media (max-width: $bp-sm) {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+
+  &__footer {
+    padding: $spacing-md $spacing-xl;
+    border-top: 1px solid $color-border;
+    background: rgba($color-bg, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $spacing-md;
+    flex-wrap: wrap;
+
+    &-left {
+      display: flex;
+      align-items: center;
+      gap: $spacing-sm;
+      font-size: 0.8rem;
+      color: $color-text-muted;
+    }
+  }
+}
+
+// Registration Modal
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba($color-bg, 0.85);
+  backdrop-filter: blur(4px);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-md;
+
+  &.is-open {
+    display: flex;
+  }
+}
+
+.modal {
+  background: $color-bg-secondary;
+  border: 1px solid $color-border;
+  border-radius: $border-radius-lg;
+  width: 100%;
+  max-width: 560px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: $shadow-lg;
+  animation: modalIn 0.2s ease;
+
+  &__header {
+    padding: $spacing-lg $spacing-xl;
+    border-bottom: 1px solid $color-border;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: 1.2rem;
+    color: $color-text-heading;
+    margin: 0;
+  }
+
+  &__close {
+    background: transparent;
+    border: none;
+    color: $color-text-muted;
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0 $spacing-sm;
+    transition: color $transition-fast;
+
+    &:hover {
+      color: $color-text-heading;
+    }
+  }
+
+  &__body {
+    padding: $spacing-xl;
+  }
+
+  &__footer {
+    padding: $spacing-md $spacing-xl;
+    border-top: 1px solid $color-border;
+    display: flex;
+    justify-content: flex-end;
+    gap: $spacing-md;
+  }
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.95) translateY(-10px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+// Form styles
+.form-group {
+  margin-bottom: $spacing-lg;
+
+  label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: $color-text;
+    margin-bottom: $spacing-sm;
+    letter-spacing: 0.03em;
+
+    .required { color: $color-red; margin-left: 3px; }
+  }
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  padding: $spacing-sm $spacing-md;
+  background: $color-bg;
+  border: 1px solid $color-border;
+  border-radius: $border-radius;
+  color: $color-text;
+  font-family: $font-body;
+  font-size: 0.95rem;
+  transition: border-color $transition-fast, box-shadow $transition-fast;
+
+  &:focus {
+    outline: none;
+    border-color: $color-accent;
+    box-shadow: 0 0 0 3px rgba($color-accent, 0.15);
+  }
+
+  &::placeholder {
+    color: $color-text-muted;
+  }
+
+  &--error {
+    border-color: $color-red;
+    box-shadow: 0 0 0 3px rgba($color-red, 0.1);
+  }
+}
+
+select.form-control {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238b949e' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+  cursor: pointer;
+
+  option {
+    background: $color-bg-secondary;
+    color: $color-text;
+  }
+}
+
+textarea.form-control {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-hint {
+  font-size: 0.8rem;
+  color: $color-text-muted;
+  margin-top: 4px;
+}
+
+.form-error {
+  font-size: 0.8rem;
+  color: $color-red;
+  margin-top: 4px;
+}
+
+// Checkbox / Radio
+.form-check {
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-sm;
+  cursor: pointer;
+  margin-bottom: $spacing-sm;
+
+  input[type="checkbox"],
+  input[type="radio"] {
+    margin-top: 3px;
+    accent-color: $color-accent;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+
+  &__label {
+    font-size: 0.9rem;
+    color: $color-text;
+    cursor: pointer;
+  }
+}
+
+// Role selector grid
+.role-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: $spacing-sm;
+}
+
+.role-option {
+  position: relative;
+
+  input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: $spacing-md;
+    background: $color-bg;
+    border: 1px solid $color-border;
+    border-radius: $border-radius;
+    cursor: pointer;
+    text-align: center;
+    transition: all $transition-fast;
+    font-size: 0.85rem;
+    color: $color-text-muted;
+
+    .icon { font-size: 1.5rem; }
+    strong { color: $color-text; font-size: 0.875rem; }
+  }
+
+  input[type="radio"]:checked + label {
+    background: rgba($color-accent, 0.1);
+    border-color: $color-accent;
+    color: $color-accent;
+
+    strong { color: $color-accent-light; }
+  }
+
+  label:hover {
+    border-color: rgba($color-accent, 0.4);
+    background: rgba($color-accent, 0.05);
+  }
+}
+
+// Registration success state
+.reg-success {
+  text-align: center;
+  padding: $spacing-xl;
+
+  &__icon {
+    width: 64px;
+    height: 64px;
+    background: rgba($color-green, 0.15);
+    border: 2px solid $color-green;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    margin: 0 auto $spacing-lg;
+  }
+
+  h3 {
+    color: $color-green;
+    margin-bottom: $spacing-sm;
+  }
+
+  p {
+    color: $color-text-muted;
+    font-size: 0.95rem;
+  }
+}
+
+// Registrants list (compact)
+.registrants-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+  margin-top: $spacing-sm;
+}
+
+.registrant-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba($color-accent, 0.1);
+  border: 1px solid rgba($color-accent, 0.2);
+  border-radius: 20px;
+  padding: 3px $spacing-sm;
+  font-size: 0.8rem;
+  color: $color-text;
+
+  &__role {
+    color: $color-accent;
+  }
+}

@@ -1,0 +1,64 @@
+title: "Blue Horizon Squadron"
+tagline: "Fly High. Fight Hard. Fly Together."
+description: >-
+  Blue Horizon Squadron is an elite DCS (Digital Combat Simulator) virtual
+  squadron dedicated to realistic, team-based air combat operations.
+  Join us for regular operations, training sessions, and community events.
+
+url: "https://blue-horizon-squadron.github.io"
+baseurl: ""
+
+# Squadron Info
+squadron:
+  name: "Blue Horizon Squadron"
+  short_name: "BHS"
+  designation: "VF-1"
+  founded: "2023"
+  motto: "Fly High. Fight Hard. Fly Together."
+  # ── Discord Configuration ──────────────────────────────────────────────────
+  # REQUIRED: Replace the placeholder values below with your real Discord details.
+  #
+  # discord_invite:     Your Discord server invite URL (e.g. https://discord.gg/abc123)
+  # discord_widget_id:  Your Discord server's numeric ID (enable Widget in Server Settings →
+  #                     Widget, then copy the Server ID shown there).
+  # discord_webhook:    Optional. A Discord webhook URL for receiving operation registrations
+  #                     directly into a Discord channel. Create one via:
+  #                     Server Settings → Integrations → Webhooks → New Webhook.
+  #                     Leave blank ("") to show a success message without posting to Discord.
+  discord_invite: "https://discord.gg/your-invite-code"
+  discord_widget_id: "YOUR_DISCORD_SERVER_ID"
+  discord_webhook: ""   # Paste your webhook URL here to enable registration notifications
+
+# Author
+author:
+  name: "Blue Horizon Squadron"
+
+# Build settings
+markdown: kramdown
+theme: ~
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Sass
+sass:
+  style: compressed
+  quiet_deps: true
+  silence_deprecations:
+    - import
+    - global-builtin
+    - color-functions
+
+# Exclude from build
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - README.md

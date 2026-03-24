@@ -1,0 +1,244 @@
+// ===========================
+// Hero Section
+// ===========================
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding-top: $nav-height;
+
+  // Animated background grid
+  &__bg {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba($color-bg, 0) 0%, $color-bg 100%),
+      linear-gradient(135deg, rgba($color-primary, 0.12) 0%, rgba($color-bg, 0) 50%, rgba($color-accent, 0.08) 100%);
+
+    // Tactical grid overlay
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba($color-accent, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba($color-accent, 0.05) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridPulse 8s ease-in-out infinite;
+    }
+
+    // Horizon glow line
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, $color-accent, $color-gold, $color-accent, transparent);
+      opacity: 0.6;
+    }
+  }
+
+  &__content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+  }
+
+  &__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-sm;
+    background: rgba($color-gold, 0.1);
+    border: 1px solid rgba($color-gold, 0.3);
+    color: $color-gold;
+    padding: 6px $spacing-md;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: $spacing-lg;
+    animation: fadeInDown 0.8s ease both;
+
+    &::before {
+      content: '✦';
+    }
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    line-height: 1.0;
+    color: $color-text-heading;
+    text-transform: uppercase;
+    margin-bottom: $spacing-md;
+    animation: fadeInDown 0.8s ease 0.1s both;
+
+    .highlight {
+      color: $color-accent;
+      text-shadow: 0 0 30px rgba($color-accent, 0.4);
+    }
+
+    .gold {
+      color: $color-gold;
+      text-shadow: 0 0 30px rgba($color-gold, 0.3);
+    }
+  }
+
+  &__motto {
+    font-family: $font-heading;
+    font-size: 1.1rem;
+    color: $color-accent;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: $spacing-lg;
+    animation: fadeInDown 0.8s ease 0.2s both;
+  }
+
+  &__description {
+    font-size: 1.15rem;
+    color: $color-text-muted;
+    max-width: 600px;
+    line-height: 1.8;
+    margin-bottom: $spacing-xl;
+    animation: fadeInDown 0.8s ease 0.3s both;
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-md;
+    animation: fadeInDown 0.8s ease 0.4s both;
+  }
+
+  &__stats {
+    display: flex;
+    gap: $spacing-xl;
+    margin-top: $spacing-2xl;
+    padding-top: $spacing-xl;
+    border-top: 1px solid $color-border;
+    animation: fadeInUp 0.8s ease 0.5s both;
+
+    @media (max-width: $bp-md) {
+      gap: $spacing-lg;
+    }
+
+    @media (max-width: $bp-sm) {
+      flex-wrap: wrap;
+      gap: $spacing-md;
+    }
+  }
+
+  &__stat {
+    &-value {
+      font-family: $font-heading;
+      font-size: 2rem;
+      font-weight: 900;
+      color: $color-accent;
+      line-height: 1;
+    }
+
+    &-label {
+      font-size: 0.75rem;
+      color: $color-text-muted;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+  }
+
+  // Scroll indicator
+  &__scroll {
+    position: absolute;
+    bottom: $spacing-xl;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    color: $color-text-muted;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    animation: bounce 2s ease-in-out infinite;
+    cursor: pointer;
+
+    &::after {
+      content: '↓';
+      font-size: 1.2rem;
+    }
+  }
+}
+
+@keyframes gridPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(-8px); }
+}
+
+// Featured section on home
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: $spacing-lg;
+  margin-top: $spacing-xl;
+}
+
+.feature-card {
+  background: $color-bg-card;
+  border: 1px solid $color-border;
+  border-radius: $border-radius-lg;
+  padding: $spacing-xl;
+  transition: transform $transition-normal, border-color $transition-normal, box-shadow $transition-normal;
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: rgba($color-accent, 0.4);
+    box-shadow: $shadow-md, 0 0 0 1px rgba($color-accent, 0.1);
+  }
+
+  &__icon {
+    width: 52px;
+    height: 52px;
+    background: rgba($color-accent, 0.1);
+    border: 1px solid rgba($color-accent, 0.2);
+    border-radius: $border-radius;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: $spacing-md;
+  }
+
+  h3 {
+    margin-bottom: $spacing-sm;
+    font-size: 1.2rem;
+  }
+
+  p {
+    color: $color-text-muted;
+    font-size: 0.95rem;
+    margin: 0;
+  }
+}

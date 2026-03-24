@@ -1,0 +1,337 @@
+---
+layout: default
+title: Home
+description: "Blue Horizon Squadron — Elite DCS virtual squadron. Join us for realistic air combat operations, training, and community."
+---
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero" id="home">
+  <div class="hero__bg" aria-hidden="true"></div>
+  <div class="container">
+    <div class="hero__content">
+      <div class="hero__badge">Blue Horizon Squadron · {{ site.squadron.designation }}</div>
+
+      <h1 class="hero__title">
+        <span class="highlight">Blue</span>
+        <span class="gold"> Horizon</span><br>
+        Squadron
+      </h1>
+
+      <p class="hero__motto">{{ site.squadron.motto }}</p>
+
+      <p class="hero__description">
+        An elite DCS (Digital Combat Simulator) virtual squadron dedicated to
+        realistic, team-based air combat. From carrier strikes to close air support,
+        we fly together with discipline and precision.
+      </p>
+
+      <div class="hero__actions">
+        <a href="{{ '/operations/' | relative_url }}" class="btn btn--primary btn--lg">
+          📋 View Operations
+        </a>
+        <a href="{{ site.squadron.discord_invite }}" class="btn btn--discord btn--lg"
+           target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:currentColor;" aria-hidden="true">
+            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.030z"/>
+          </svg>
+          Join Discord
+        </a>
+        <a href="{{ '/about/' | relative_url }}" class="btn btn--secondary btn--lg">
+          Learn More
+        </a>
+      </div>
+
+      <div class="hero__stats">
+        <div class="hero__stat">
+          <div class="hero__stat-value">{{ site.data.members.size }}+</div>
+          <div class="hero__stat-label">Active Pilots</div>
+        </div>
+        <div class="hero__stat">
+          <div class="hero__stat-value">{{ site.data.operations.size }}</div>
+          <div class="hero__stat-label">Upcoming Ops</div>
+        </div>
+        <div class="hero__stat">
+          <div class="hero__stat-value">3+</div>
+          <div class="hero__stat-label">Maps Flown</div>
+        </div>
+        <div class="hero__stat">
+          <div class="hero__stat-value">{{ site.squadron.founded }}</div>
+          <div class="hero__stat-label">Founded</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero__scroll" onclick="document.getElementById('patches').scrollIntoView({behavior:'smooth'})"
+       aria-label="Scroll down">Scroll</div>
+</section>
+
+<!-- ============================================================
+     PATCHES / INSIGNIA
+     ============================================================ -->
+<section class="section" id="patches" style="background: linear-gradient(180deg, var(--bg-secondary, #161b22) 0%, transparent 100%); border-bottom: 1px solid #30363d;">
+  <div class="container">
+    <h2 class="section-title">Our Patches</h2>
+    <p class="section-subtitle">Wear your colours with pride</p>
+
+    <div style="display:flex; justify-content:center; align-items:center; flex-wrap:wrap; gap:48px; margin-top: 40px;">
+
+      <div style="text-align:center;">
+        <img src="https://github.com/user-attachments/assets/0a030e36-dc89-4cdf-a026-9d5ec07f4241"
+             alt="Blue Horizon Squadron Digital Patch"
+             style="width:200px; height:200px; object-fit:contain; filter:drop-shadow(0 4px 24px rgba(45,156,219,0.35));"
+             loading="lazy">
+        <p style="margin-top:12px; font-size:.85rem; color:#8b949e; text-transform:uppercase; letter-spacing:.1em;">Squadron Patch</p>
+      </div>
+
+      <div style="text-align:center;">
+        <img src="{{ '/assets/images/eagle-insignia.png' | relative_url }}"
+             alt="BHS Eagle Insignia"
+             style="width:180px; height:auto; object-fit:contain; filter:drop-shadow(0 4px 24px rgba(230,184,0,0.3));"
+             loading="lazy">
+        <p style="margin-top:12px; font-size:.85rem; color:#8b949e; text-transform:uppercase; letter-spacing:.1em;">Eagle Insignia</p>
+      </div>
+
+      <div style="text-align:center;">
+        <img src="https://github.com/user-attachments/assets/0c2fcde1-4d2f-42de-a175-001202033111"
+             alt="Golden Falcons Display Team Patch"
+             style="width:200px; height:200px; object-fit:contain; filter:drop-shadow(0 4px 24px rgba(230,184,0,0.4));"
+             loading="lazy">
+        <p style="margin-top:12px; font-size:.85rem; color:#8b949e; text-transform:uppercase; letter-spacing:.1em;">Display Team</p>
+      </div>
+
+      <div style="text-align:center;">
+        <img src="https://github.com/user-attachments/assets/78e388bc-1729-4e2d-9e6e-0cbdda203928"
+             alt="Black Flag Caucasus Operation Patch"
+             style="width:200px; height:200px; object-fit:contain; filter:drop-shadow(0 4px 24px rgba(150,50,50,0.4));"
+             loading="lazy">
+        <p style="margin-top:12px; font-size:.85rem; color:#8b949e; text-transform:uppercase; letter-spacing:.1em;">Black Flag · Caucasus</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     WHY JOIN
+     ============================================================ -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">Why Fly With Us?</h2>
+    <p class="section-subtitle">Professional virtual aviation, real community</p>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-card__icon">✈️</div>
+        <h3>Realistic Operations</h3>
+        <p>Carefully planned multi-ship operations across multiple DCS maps. Real mission planning, COMMS discipline, and tactical execution.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card__icon">🎯</div>
+        <h3>Structured Training</h3>
+        <p>Regular training sessions covering BFM, BVR, CAS, carrier operations, and more. From beginner to advanced.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card__icon">🤝</div>
+        <h3>Strong Community</h3>
+        <p>Active Discord server with dedicated channels for mission planning, debriefs, guides, and casual discussion.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card__icon">🛩️</div>
+        <h3>Multi-Aircraft</h3>
+        <p>We fly F/A-18C, F-16C, F-14B, A-10C, and more. Whatever module you own, we have a role for you.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card__icon">📋</div>
+        <h3>Easy Registration</h3>
+        <p>Sign up for upcoming operations directly on this site. Choose your role, aircraft, and receive briefings via Discord.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card__icon">🌍</div>
+        <h3>Multiple Theaters</h3>
+        <p>We operate across Caucasus, Persian Gulf, Syria, and more. New campaigns and one-off operations regularly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     UPCOMING OPERATIONS (preview)
+     ============================================================ -->
+<section class="section" style="background: #161b22; border-top: 1px solid #30363d; border-bottom: 1px solid #30363d;">
+  <div class="container">
+    <h2 class="section-title">Upcoming Operations</h2>
+    <p class="section-subtitle">Register for the next mission</p>
+
+    <div class="operations-grid" style="max-width:800px; margin:40px auto 0;">
+      {% for op in site.data.operations limit:2 %}
+      {% if op.status == 'upcoming' or op.status == 'active' or op.status == 'planning' %}
+      <div class="op-card" data-status="{{ op.status }}">
+        <div class="op-card__header">
+          <div class="op-card__title-area">
+            <div class="op-card__codename">{{ op.codename }}</div>
+            <div class="op-card__title">{{ op.title }}</div>
+            <div class="op-card__theater">📍 {{ op.theater }} · {{ op.map }}</div>
+          </div>
+          <div>
+            {% if op.status == 'upcoming' %}<span class="badge badge--primary">Upcoming</span>{% endif %}
+            {% if op.status == 'active' %}<span class="badge badge--green">Active</span>{% endif %}
+            {% if op.status == 'planning' %}<span class="badge badge--gold">Planning</span>{% endif %}
+          </div>
+        </div>
+        <div class="op-card__body" style="grid-template-columns: 1fr;">
+          <div class="op-card__info">
+            <ul class="op-card__meta-list">
+              <li class="op-card__meta-item"><span class="icon">📅</span> <strong>{{ op.date }}</strong></li>
+              <li class="op-card__meta-item"><span class="icon">🕐</span> <strong>{{ op.time }}</strong></li>
+              <li class="op-card__meta-item"><span class="icon">⏱</span> {{ op.duration }}</li>
+              <li class="op-card__meta-item"><span class="icon">⚡</span> {{ op.difficulty }}</li>
+            </ul>
+            <div class="op-card__slots">
+              {% assign pct = op.slots_filled | times: 100 | divided_by: op.slots_total %}
+              <div class="op-card__slots-label">Slots filled</div>
+              <div class="op-card__slots-bar">
+                <div class="op-card__slots-fill{% if pct >= 100 %} full{% elsif pct >= 80 %} almost{% endif %}"
+                     style="width: {{ pct }}%"></div>
+              </div>
+              <div class="op-card__slots-text">{{ op.slots_filled }} / {{ op.slots_total }} pilots registered</div>
+            </div>
+          </div>
+        </div>
+        <div class="op-card__footer">
+          <div class="op-card__footer-left">
+            {% for tag in op.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
+          </div>
+          <a href="{{ '/operations/#' | append: op.id | relative_url }}" class="btn btn--primary btn--sm">
+            Register →
+          </a>
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="text-center mt-xl">
+      <a href="{{ '/operations/' | relative_url }}" class="btn btn--secondary">
+        View All Operations →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     DISCORD CTA
+     ============================================================ -->
+<section class="section discord-section">
+  <div class="container">
+    <div class="discord-cta">
+      <div class="discord-cta__content">
+        <div class="discord-cta__icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.030z"/>
+          </svg>
+          Discord
+        </div>
+        <h2>Join Us on Discord</h2>
+        <p>All mission briefings, registrations, debrief recordings, and community discussion happen on our Discord server. It's the hub of Blue Horizon Squadron.</p>
+
+        <div class="discord-features">
+          <div class="discord-feature">
+            <div class="discord-feature__icon">📢</div>
+            <div>
+              <h4>Operation Briefings</h4>
+              <p>Get full briefing packages before every operation.</p>
+            </div>
+          </div>
+          <div class="discord-feature">
+            <div class="discord-feature__icon">🎙️</div>
+            <div>
+              <h4>Voice Channels</h4>
+              <p>Dedicated tactical voice comms during operations.</p>
+            </div>
+          </div>
+          <div class="discord-feature">
+            <div class="discord-feature__icon">📚</div>
+            <div>
+              <h4>Training Resources</h4>
+              <p>Guides, videos, and manuals for every module.</p>
+            </div>
+          </div>
+          <div class="discord-feature">
+            <div class="discord-feature__icon">🏆</div>
+            <div>
+              <h4>Awards & Recognition</h4>
+              <p>Earn medals and commendations for outstanding service.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="discord-cta__actions">
+        {% if site.squadron.discord_widget_id != "YOUR_DISCORD_SERVER_ID" %}
+        <div class="discord-widget-wrap">
+          <iframe src="https://discord.com/widget?id={{ site.squadron.discord_widget_id }}&theme=dark"
+                  width="350" height="500"
+                  allowtransparency="true" frameborder="0"
+                  sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+                  title="Blue Horizon Squadron Discord server">
+          </iframe>
+        </div>
+        {% else %}
+        <div style="text-align:center; padding:40px;">
+          <img src="https://github.com/user-attachments/assets/0a030e36-dc89-4cdf-a026-9d5ec07f4241"
+               alt="Blue Horizon Squadron patch"
+               style="width:160px; height:160px; object-fit:contain; filter:drop-shadow(0 4px 24px rgba(45,156,219,0.4));"
+               loading="lazy">
+        </div>
+        {% endif %}
+        <a href="{{ site.squadron.discord_invite }}"
+           class="btn btn--discord btn--lg"
+           target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:currentColor;" aria-hidden="true">
+            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.030z"/>
+          </svg>
+          Join Our Discord
+        </a>
+        <p class="discord-cta__note">Free to join · No experience required</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LATEST NEWS
+     ============================================================ -->
+{% assign recent_posts = site.posts | limit:3 %}
+{% if recent_posts.size > 0 %}
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">Latest News</h2>
+    <p class="section-subtitle">Updates from the squadron</p>
+    <div class="news-grid mt-xl">
+      {% for post in site.posts limit:3 %}
+      <article class="post-card">
+        <div class="post-card__meta">
+          <span>📅 {{ post.date | date: "%b %-d, %Y" }}</span>
+          {% if post.category %}<span class="badge badge--primary">{{ post.category }}</span>{% endif %}
+        </div>
+        <div class="post-card__content">
+          <h3 class="post-card__title">
+            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          </h3>
+          <p class="post-card__excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
+        </div>
+        <div class="post-card__footer">
+          <a href="{{ post.url | relative_url }}" class="btn btn--secondary btn--sm">Read More →</a>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+    <div class="text-center mt-xl">
+      <a href="{{ '/news/' | relative_url }}" class="btn btn--secondary">All News →</a>
+    </div>
+  </div>
+</section>
+{% endif %}

@@ -1,0 +1,57 @@
+// ===========================
+// Variables
+// ===========================
+
+// Colors
+$color-bg:           #0d1117;
+$color-bg-secondary: #161b22;
+$color-bg-card:      #1c2333;
+$color-border:       #30363d;
+$color-primary:      #1e6091;
+$color-accent:       #2d9cdb;
+$color-accent-light: #56b3e9;
+$color-gold:         #e6b800;
+$color-red:          #d73a49;
+$color-green:        #28a745;
+$color-text:         #c9d1d9;
+$color-text-muted:   #8b949e;
+$color-text-heading: #f0f6fc;
+$color-white:        #ffffff;
+$color-discord:      #5865f2;
+
+// Typography
+$font-body:    'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+$font-heading: 'Rajdhani', 'Orbitron', 'Segoe UI', sans-serif;
+$font-mono:    'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+
+// Spacing
+$spacing-xs:  4px;
+$spacing-sm:  8px;
+$spacing-md:  16px;
+$spacing-lg:  24px;
+$spacing-xl:  40px;
+$spacing-2xl: 64px;
+$spacing-3xl: 96px;
+
+// Sizes
+$nav-height:      70px;
+$container-width: 1200px;
+$border-radius:   6px;
+$border-radius-lg: 12px;
+
+// Shadows
+$shadow-sm:  0 1px 3px rgba(0,0,0,0.4);
+$shadow-md:  0 4px 12px rgba(0,0,0,0.5);
+$shadow-lg:  0 8px 24px rgba(0,0,0,0.6);
+$shadow-glow: 0 0 20px rgba(45,156,219,0.25);
+
+// Transitions
+$transition-fast:   0.15s ease;
+$transition-normal: 0.25s ease;
+$transition-slow:   0.4s ease;
+
+// Breakpoints
+$bp-sm: 576px;
+$bp-md: 768px;
+$bp-lg: 992px;
+$bp-xl: 1200px;

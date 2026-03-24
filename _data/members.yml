@@ -1,0 +1,85 @@
+- callsign: "Phantom"
+  name: "Maj. R. Hawkins"
+  role: "Squadron Commander"
+  rank: "Major"
+  aircraft:
+    - "F/A-18C Hornet"
+    - "F-14B Tomcat"
+  specialties:
+    - "BFM"
+    - "Strike"
+    - "Mission Planning"
+  joined: "2023"
+  status: "active"
+  initials: "RH"
+
+- callsign: "Ghost"
+  name: "Capt. T. Marlowe"
+  role: "Executive Officer"
+  rank: "Captain"
+  aircraft:
+    - "F/A-18C Hornet"
+    - "F-16C Viper"
+  specialties:
+    - "SEAD"
+    - "CAP"
+    - "Carrier Ops"
+  joined: "2023"
+  status: "active"
+  initials: "TM"
+
+- callsign: "Viper"
+  name: "Lt. S. Chen"
+  role: "Weapons Officer"
+  rank: "Lieutenant"
+  aircraft:
+    - "F-16C Viper"
+    - "F/A-18C Hornet"
+  specialties:
+    - "BVR Combat"
+    - "SEAD"
+  joined: "2023"
+  status: "active"
+  initials: "SC"
+
+- callsign: "Wraith"
+  name: "Lt. A. Petrov"
+  role: "Pilot"
+  rank: "Lieutenant"
+  aircraft:
+    - "Su-27"
+    - "MiG-29"
+  specialties:
+    - "Red Air"
+    - "Agressor"
+  joined: "2024"
+  status: "active"
+  initials: "AP"
+
+- callsign: "Titan"
+  name: "CWO J. Brooks"
+  role: "CAS Specialist"
+  rank: "Chief Warrant Officer"
+  aircraft:
+    - "A-10C II Warthog"
+    - "Ka-50"
+  specialties:
+    - "CAS"
+    - "JTAC"
+    - "Low Level"
+  joined: "2024"
+  status: "active"
+  initials: "JB"
+
+- callsign: "Echo"
+  name: "Ens. M. Torres"
+  role: "Pilot"
+  rank: "Ensign"
+  aircraft:
+    - "F/A-18C Hornet"
+  specialties:
+    - "Carrier Ops"
+    - "Multi-Role"
+  joined: "2025"
+  status: "active"
+  initials: "MT"

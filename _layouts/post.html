@@ -1,0 +1,40 @@
+---
+layout: default
+---
+
+<div class="page-header">
+  <div class="container">
+    {% if page.category %}<span class="badge badge--primary">{{ page.category }}</span>{% endif %}
+    <h1>{{ page.title }}</h1>
+    <p class="page-header__subtitle">
+      <span class="text-muted">{{ page.date | date: "%B %-d, %Y" }}</span>
+      {% if page.author %} · <span class="text-muted">{{ page.author }}</span>{% endif %}
+    </p>
+  </div>
+</div>
+
+<div class="container">
+  <div style="max-width:760px; margin:0 auto;">
+    {% if page.tags %}
+    <div style="margin-bottom: 24px; display:flex; gap:6px; flex-wrap:wrap;">
+      {% for tag in page.tags %}
+      <span class="tag">{{ tag }}</span>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="post-content">
+      {{ content }}
+    </div>
+
+    <hr>
+    <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px; padding:16px 0;">
+      {% if page.previous.url %}
+      <a href="{{ page.previous.url | relative_url }}" class="btn btn--secondary btn--sm">← {{ page.previous.title }}</a>
+      {% endif %}
+      {% if page.next.url %}
+      <a href="{{ page.next.url | relative_url }}" class="btn btn--secondary btn--sm" style="margin-left:auto;">{{ page.next.title }} →</a>
+      {% endif %}
+    </div>
+  </div>
+</div>

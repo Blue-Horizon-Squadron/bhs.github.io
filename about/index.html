@@ -1,0 +1,97 @@
+---
+layout: default
+title: About
+description: "About Blue Horizon Squadron — our history, aircraft, and mission as a DCS virtual squadron."
+---
+
+<div class="page-header">
+  <div class="container">
+    <h1>About the Squadron</h1>
+    <p class="page-header__subtitle">{{ site.squadron.motto }}</p>
+  </div>
+</div>
+
+<div class="container" style="max-width:900px; padding-bottom:80px;">
+
+  <!-- Patches showcase -->
+  <div style="display:flex; justify-content:center; gap:32px; flex-wrap:wrap; margin-bottom:60px;">
+    <img src="https://github.com/user-attachments/assets/0a030e36-dc89-4cdf-a026-9d5ec07f4241"
+         alt="Blue Horizon Squadron patch"
+         style="width:150px; height:150px; object-fit:contain; filter:drop-shadow(0 4px 20px rgba(45,156,219,.4));"
+         loading="lazy">
+    <img src="{{ '/assets/images/eagle-insignia.png' | relative_url }}"
+         alt="BHS Eagle Insignia"
+         style="width:130px; height:auto; object-fit:contain; filter:drop-shadow(0 4px 20px rgba(230,184,0,.3));"
+         loading="lazy">
+    <img src="https://github.com/user-attachments/assets/0c2fcde1-4d2f-42de-a175-001202033111"
+         alt="Golden Falcons Display Team"
+         style="width:150px; height:150px; object-fit:contain; filter:drop-shadow(0 4px 20px rgba(230,184,0,.4));"
+         loading="lazy">
+  </div>
+
+  <div class="post-content">
+
+    <h2 id="history">Our History</h2>
+    <p>
+      Blue Horizon Squadron was founded in {{ site.squadron.founded }} by a group of DCS enthusiasts who wanted more than casual online flying. 
+      We wanted structured operations, realistic tactics, and a community that cared about the craft of virtual aviation.
+    </p>
+    <p>
+      From our first Caucasus campaign to multi-carrier strike packages in the Persian Gulf, BHS has grown into a tight-knit 
+      group of dedicated virtual pilots. Every operation is planned with care, briefed professionally, and executed as a team.
+    </p>
+
+    <h2 id="units">Our Units</h2>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:20px; margin:24px 0 40px;">
+      <div style="background:#1c2333; border:1px solid #30363d; border-radius:12px; padding:24px; text-align:center;">
+        <img src="https://github.com/user-attachments/assets/0a030e36-dc89-4cdf-a026-9d5ec07f4241"
+             alt="Blue Horizon Squadron patch"
+             style="width:100px;height:100px;object-fit:contain;filter:drop-shadow(0 2px 12px rgba(45,156,219,.3));margin-bottom:16px;"
+             loading="lazy">
+        <h3 style="font-size:1.1rem; margin-bottom:4px;">Blue Horizon Squadron</h3>
+        <p style="color:#8b949e; font-size:.875rem; margin:0;">Main combat squadron. Multi-role operations across all theaters. CAP, CAS, Strike, SEAD, and carrier operations.</p>
+      </div>
+      <div style="background:#1c2333; border:1px solid #30363d; border-radius:12px; padding:24px; text-align:center;">
+        <img src="https://github.com/user-attachments/assets/0c2fcde1-4d2f-42de-a175-001202033111"
+             alt="Golden Falcons Display Team"
+             style="width:100px;height:100px;object-fit:contain;filter:drop-shadow(0 2px 12px rgba(230,184,0,.4));margin-bottom:16px;"
+             loading="lazy">
+        <h3 style="font-size:1.1rem; margin-bottom:4px;">Golden Falcons Display Team</h3>
+        <p style="color:#8b949e; font-size:.875rem; margin:0;">Elite aerobatic display team showcasing precision formation flying and advanced manoeuvres.</p>
+      </div>
+    </div>
+
+    <h2 id="aircraft">Aircraft We Fly</h2>
+    <p>We support a wide range of DCS modules. You don't need to own every aircraft — we have roles for whatever you fly.</p>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(200px,1fr)); gap:12px; margin:20px 0 40px;">
+      {% assign aircraft_list = "F/A-18C Hornet,F-16C Viper,F-14A/B Tomcat,A-10C II Warthog,AV-8B Harrier,F-15C Eagle,Su-27 Flanker,MiG-29 Fulcrum,Ka-50 Black Shark,Mi-24P Hind" | split: "," %}
+      {% for ac in aircraft_list %}
+      <div style="background:#1c2333; border:1px solid #30363d; border-radius:6px; padding:12px 16px; display:flex; align-items:center; gap:8px;">
+        <span style="color:#2d9cdb;">✈</span>
+        <span style="font-size:.9rem; color:#c9d1d9;">{{ ac }}</span>
+      </div>
+      {% endfor %}
+    </div>
+
+    <h2 id="operations-info">How Operations Work</h2>
+    <p>
+      Operations are planned and published on the <a href="{{ '/operations/' | relative_url }}">Operations page</a> 1–2 weeks in advance. 
+      Pilots register through the website, selecting their preferred role and aircraft. Once registered, you'll receive a 
+      full briefing package via Discord — including mission files, frequencies, waypoints, and rules of engagement.
+    </p>
+    <p>
+      On the night, we brief in Discord voice 30 minutes before engine start. Operations typically last 2–4 hours 
+      and are followed by a debrief where we review the mission and improve for next time.
+    </p>
+
+    <h2 id="disclaimer">Disclaimer</h2>
+    <p>
+      Blue Horizon Squadron is a fictional virtual squadron for use within the DCS World simulator. 
+      We have no affiliation with any real military organisation. All aircraft, tactics, and operations 
+      depicted are fictional and for entertainment purposes only. DCS World is a product of Eagle Dynamics SA.
+    </p>
+
+  </div><!-- /.post-content -->
+</div>
