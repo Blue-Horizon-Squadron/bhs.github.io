@@ -3,37 +3,42 @@
   role: "Founder"
   rank: "Marshall"
   aircraft:
-    - "F16C Viper"
-    - "MiG29A Fulcrum"
-    - "C130J Hercules"
-    # - "F-14B Tomcat"
+    - "All Fixed Wing"
+    - "All Rotary Wing"
   specialties:
     # - "BFM"
     # - "Strike"
     - "Mission Planning"
     - "Mission Design"
     - "BFM"
+    - "BVR"
     - "Strike"
     - "Escort"
     - "Intercept"
+    - "GCI/AWACS"
+  terrains:
+    - "All Terrains"
   joined: "2024"
   status: "active"
   initials: "PC"
 
 - callsign: "KC"
   name: "K.C \"KC\" Hater"
-  role: "Co-Founder"
+  role: "Co-Founder / Capra's Wife"
   rank: "Vice Marshall"
   aircraft:
-    - "[CLASSIFIED]"
+    - "All Fixed Wing"
+    - "All Rotary Wing"
   specialties:
     - "[CLASSIFIED]"
+  terrains:
+    - "All Terrains"
   joined: "2024"
   status: "active"
   initials: "KC"
 
 - callsign: "Lynx"
-  name: "D. \"Lynx\" M."
+  name: "[CLASSIFIED]"
   role: "Manager"
   rank: "Air Commodore"
   aircraft:
@@ -42,9 +47,11 @@
   specialties:
     - "BVR Combat"
     - "SEAD"
-  joined: "2024"
+  terrains:
+    - "Unknown"
+  joined: "2025"
   status: "active"
-  initials: "DM"
+  initials: "VX"
 
 - callsign: "Kelso"
   name: "Kelso"
@@ -56,8 +63,10 @@
   specialties:
     - "BFM"
     - "BVR"
-  joined: "2024"
-  status: "active"
+  terrains:
+    - "Unknown"
+  joined: "2025"
+  status: "inactive"
   initials: "KS"
 
 - callsign: "Vaux"
@@ -71,6 +80,75 @@
     - "CAS"
     - "Ground Attack"
     - "Low Level"
-  joined: "2024"
+  terrains:
+    - "Caucasus"
+    - "Syria"
+    - "Afghanistan"
+  joined: "2025"
   status: "active"
-  initials: "KV"
+  initials: "DV"
+
+- callsign: "Ericat"
+  name: "[CLASSIFIED]"
+  role: "Server Admin"
+  rank: "N/A"
+  aircraft:
+    - "UNKNOWN"
+  specialties:
+    - "CAS"
+    - "Ground Attack"
+    - "Low Level"
+  joined: "2025"
+  status: "active"
+  initials: "EC"
+
+- callsign: "Analog"
+  name: "[CLASSIFIED]"
+  role: "Moderator"
+  rank: "N/A"
+  aircraft:
+    - "F14A/B Tomcat"
+  specialties:
+    - "Being Analog"
+    - "F14A/B Specialist"
+    - "Ground Attack"
+    - "CAS"
+  joined: "2025"
+  status: "inactive"
+  initials: "AN"
+
+- callsign: "Analog"
+  name: "[CLASSIFIED]"
+  role: "Moderator"
+  rank: "N/A"
+  aircraft:
+    - "F14A/B Tomcat"
+  specialties:
+    - "Being Analog"
+    - "F14A/B Specialist"
+    - "Ground Attack"
+    - "CAS"
+  terrains:
+    - "Caucasus"
+    - "Persian Gulf"
+    - "Syria"
+  joined: "2025"
+  status: "inactive"
+  initials: "AN"
+
+- callsign: "Magic"
+  name: "[CLASSIFIED]"
+  role: "Pilot"
+  rank: "N/A"
+  aircraft:
+    - "F-16C Viper"
+    - "OH-58D Kiowa"
+  specialties:
+    - "BFM"
+    - "BVR"
+    - "Ground Attack"
+  terrains:
+    - "Unknown"
+  joined: "2025"
+  status: "inactive"
+  initials: "AN"

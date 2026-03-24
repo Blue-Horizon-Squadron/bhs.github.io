@@ -42,19 +42,27 @@ description: "Meet the pilots of Blue Horizon Squadron. Learn about our members,
     <div class="member-card">
       <div class="member-card__avatar">{{ member.initials }}</div>
       <div class="member-card__name">"{{ member.callsign }}"</div>
-      <div class="member-card__role">{{ member.rank }} · {{ member.role }}</div>
+      <div class="member-card__role">{{ member.role }}</div>
       <div class="member-card__aircraft">
+        Aircraft:
         {% for ac in member.aircraft %}
         <span class="tag">{{ ac }}</span>
         {% endfor %}
       </div>
       {% if member.specialties %}
       <div style="margin-top: 8px;">
+        Specialties:
         {% for spec in member.specialties %}
         <span class="badge badge--muted" style="margin:2px;">{{ spec }}</span>
         {% endfor %}
       </div>
       {% endif %}
+      <div style="margin-top: 8px;">
+        Terrains:
+        {% for ter in member.terrains %}
+        <span class="badge badge--muted">{{ ter }} </span>
+        {% endfor %}
+      </div>
       <div style="margin-top: 8px; font-size:.75rem; color:#8b949e;">Since {{ member.joined }}</div>
     </div>
     {% endif %}
