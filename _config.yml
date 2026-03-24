@@ -11,7 +11,7 @@ baseurl: ""
 # Squadron Info
 squadron:
   name: "607 Virtual Fighter Wing - Blue Horizon Squadron"
-  short_name: "607 VFW."
+  short_name: "607 VFW"
   designation: "[607] BHS"
   founded: "2024"
   motto: "Fly High. Fight Hard. Fly Together."
