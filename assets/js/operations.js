@@ -59,59 +59,99 @@
 
   async function fetchOpStatus(operationId) {
     if (!OPS_STATUS_ENDPOINT || !operationId) return null;
-    const url = OPS_STATUS_ENDPOINT + '?operation_id=' + encodeURIComponent(operationId);
+
+    // Pass role keys so backend can initialize trusted role slot totals even before any regs exist
+    let roleKeys = [];
+    try {
+      const card = document.getElementById(operationId);
+      if (card) {
+        roleKeys = Array.from(card.querySelectorAll('[data-role-key]'))
+          .map(function (el) { return el.getAttribute('data-role-key') || ''; })
+          .map(function (s) { return String(s).trim(); })
+          .filter(Boolean);
+      }
+    } catch (e) {
+      roleKeys = [];
+    }
+
+    const url = (function () {
+      const base = OPS_STATUS_ENDPOINT + '?operation_id=' + encodeURIComponent(operationId);
+      if (!roleKeys.length) return base;
+      // Comma-separated; server also accepts JSON but comma keeps URL smaller
+      return base + '&role_keys=' + encodeURIComponent(roleKeys.join(','));
+    })();
+
     const res = await fetch(url, { method: 'GET' });
     const json = await res.json().catch(function () { return null; });
     if (!res.ok) return null;
     return json;
   }
 
-  function updateOpCardUI(opId, liveRoles) {
+  function updateOpCardUI(opId, liveRoles, liveTotals) {
     const card = document.getElementById(opId);
-    if (!card || !liveRoles) return;
+    if (!card) return;
 
     // Update role tiles
-    const roleTiles = card.querySelectorAll('[data-role-key]');
-    if (roleTiles && roleTiles.length) {
-      roleTiles.forEach(function (tile) {
-        const rk = tile.getAttribute('data-role-key');
-        const live = liveRoles[rk];
-        if (!live) return;
+    if (liveRoles) {
+      const roleTiles = card.querySelectorAll('[data-role-key]');
+      if (roleTiles && roleTiles.length) {
+        roleTiles.forEach(function (tile) {
+          const rk = tile.getAttribute('data-role-key');
+          const live = liveRoles[rk];
+          if (!live) return;
 
-        const statusEl = tile.querySelector('[data-role-status]');
-        if (!statusEl) return;
+          const statusEl = tile.querySelector('[data-role-status]');
+          if (!statusEl) return;
 
-        const open = Number(live.slots || 0) - Number(live.filled || 0);
-        const isFull = open <= 0;
+          const open = Number(live.slots || 0) - Number(live.filled || 0);
+          const isFull = open <= 0;
 
-        // Update style hints (keeps original look but reflects fullness)
-        tile.style.borderColor = isFull ? 'rgba(215,58,73,.4)' : '#30363d';
-        const titleEl = tile.querySelector('div');
-        if (titleEl) titleEl.style.color = isFull ? '#d73a49' : '#f0f6fc';
-        statusEl.style.color = isFull ? '#d73a49' : '#2d9cdb';
+          tile.style.borderColor = isFull ? 'rgba(215,58,73,.4)' : '#30363d';
+          const titleEl = tile.querySelector('div');
+          if (titleEl) titleEl.style.color = isFull ? '#d73a49' : '#f0f6fc';
+          statusEl.style.color = isFull ? '#d73a49' : '#2d9cdb';
 
-        if (isFull) {
-          statusEl.textContent = `🔴 FULL (${live.filled}/${live.slots})`;
-          statusEl.setAttribute('data-role-full', 'true');
-        } else {
-          statusEl.textContent = `🟢 ${open} slot${open !== 1 ? 's' : ''} open`;
-          statusEl.setAttribute('data-role-full', 'false');
-        }
-      });
+          if (isFull) {
+            statusEl.textContent = `🔴 FULL (${live.filled}/${live.slots})`;
+            statusEl.setAttribute('data-role-full', 'true');
+          } else {
+            statusEl.textContent = `🟢 ${open} slot${open !== 1 ? 's' : ''} open`;
+            statusEl.setAttribute('data-role-full', 'false');
+          }
+        });
+      }
     }
 
-    // Apply slots bar width (from server-rendered pct)
-    const slotsFill = card.querySelector('.op-card__slots-fill[data-op-slots-pct]');
-    if (slotsFill) {
-      const pct = Number(slotsFill.getAttribute('data-op-slots-pct') || '0');
-      if (Number.isFinite(pct)) slotsFill.style.width = `${Math.max(0, Math.min(100, pct))}%`;
+    // Overall slots bar/label/text (prefer live totals)
+    const slotsWrap = card.querySelector('.op-card__slots[data-op-id]');
+    const total = Number(liveTotals?.slots_total ?? (slotsWrap ? slotsWrap.getAttribute('data-op-slots-total') : 0));
+    const filled = Number(liveTotals?.slots_filled ?? (slotsWrap ? slotsWrap.getAttribute('data-op-slots-filled') : 0));
+
+    if (slotsWrap && Number.isFinite(total) && total > 0 && Number.isFinite(filled)) {
+      slotsWrap.setAttribute('data-op-slots-total', String(total));
+      slotsWrap.setAttribute('data-op-slots-filled', String(filled));
+
+      const pct = Math.max(0, Math.min(100, (filled * 100) / total));
+
+      const fillEl = slotsWrap.querySelector('.op-card__slots-fill');
+      if (fillEl) {
+        fillEl.style.width = `${pct}%`;
+        fillEl.setAttribute('data-op-slots-pct', String(pct));
+      }
+
+      const labelEl = slotsWrap.querySelector('.op-card__slots-label');
+      if (labelEl) labelEl.textContent = `Overall registration (${filled}/${total} pilots)`;
+
+      const remaining = Math.max(0, total - filled);
+      const textEl = slotsWrap.querySelector('.op-card__slots-text');
+      if (textEl) textEl.textContent = `${remaining} slot${remaining !== 1 ? 's' : ''} remaining`;
     }
   }
 
   async function refreshOperationStatus(opId) {
     const status = await fetchOpStatus(opId);
     if (!status || !status.ok) return null;
-    return status.roles || null;
+    return { roles: status.roles || null, totals: status.totals || null };
   }
 
   // ─── Wire up register buttons via data attributes ────────────────────────────
@@ -126,11 +166,11 @@
 
       // Pull live counts before opening modal
       try {
-        const liveRoles = await refreshOperationStatus(opId);
-        if (liveRoles) {
-          roles = mergeLiveRoleStatus(roles, liveRoles);
+        const live = await refreshOperationStatus(opId);
+        if (live && live.roles) {
+          roles = mergeLiveRoleStatus(roles, live.roles);
           // Update card UI too
-          updateOpCardUI(opId, liveRoles);
+          updateOpCardUI(opId, live.roles, live.totals);
         }
       } catch (e) {
         // best-effort; ignore
@@ -147,18 +187,8 @@
       const opId = btn.getAttribute('data-op-id');
       if (!opId) return;
 
-      // Ensure static slots bar is rendered even before live refresh
-      try {
-        const card = document.getElementById(opId);
-        const slotsFill = card ? card.querySelector('.op-card__slots-fill[data-op-slots-pct]') : null;
-        if (slotsFill) {
-          const pct = Number(slotsFill.getAttribute('data-op-slots-pct') || '0');
-          if (Number.isFinite(pct)) slotsFill.style.width = `${Math.max(0, Math.min(100, pct))}%`;
-        }
-      } catch (e) {}
-
-      refreshOperationStatus(opId).then(function (liveRoles) {
-        if (liveRoles) updateOpCardUI(opId, liveRoles);
+      refreshOperationStatus(opId).then(function (live) {
+        if (live && live.roles) updateOpCardUI(opId, live.roles, live.totals);
       }).catch(function () { /* ignore */ });
     });
   });

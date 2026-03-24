@@ -43,8 +43,9 @@ export class RegistrationStore {
     // Called via Worker route /ops-status.
     if (url.pathname === '/status' && request.method === 'GET') {
       const operationId = url.searchParams.get('operation_id');
+      const roleKeysParam = url.searchParams.get('role_keys');
       const res = await this.state.blockConcurrencyWhile(async () => {
-        return await this._status(operationId);
+        return await this._status(operationId, roleKeysParam);
       });
       return res;
     }
@@ -63,24 +64,53 @@ export class RegistrationStore {
     return { roles, regsCount: Object.keys(regs).length };
   }
 
-  async _status(operationIdFromQuery) {
+  async _status(operationIdFromQuery, roleKeysParam) {
     const operationId = String(operationIdFromQuery || '').trim();
 
     const roles = (await this.state.storage.get('roles')) || {};
 
+    // role_keys supports: comma-separated OR JSON array (URL-encoded)
+    let roleKeys = [];
+    if (roleKeysParam) {
+      const raw = String(roleKeysParam);
+      try {
+        if (raw.trim().startsWith('[')) {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed)) roleKeys = parsed.map(String);
+        } else {
+          roleKeys = raw.split(',').map(s => s.trim()).filter(Boolean);
+        }
+      } catch {
+        roleKeys = raw.split(',').map(s => s.trim()).filter(Boolean);
+      }
+    }
+
     // If configured, lazily initialize role slots from trusted config so UI has full list
     // even before any registrations happen.
     if (operationId) {
-      const keysToEnsure = Object.keys(roles);
-      // If we have no roles stored yet, try to load from trusted config using known role keys.
-      // We can't enumerate KV here, so the UI will still send its known role keys in practice.
-      // This endpoint returns whatever we currently know; unknown roles will be filled in client-side.
+      const keysToEnsure = Array.from(new Set([
+        ...Object.keys(roles),
+        ...roleKeys,
+      ]));
+
       for (const rk of keysToEnsure) {
-        if (!roles[rk] || !Number.isFinite(roles[rk].slots) || roles[rk].slots <= 0) {
+        if (!rk) continue;
+
+        if (!roles[rk]) {
+          // Ensure an entry exists so we can fill slots and contribute to totals
+          roles[rk] = { slots: 0, filled: 0 };
+        }
+
+        if (!Number.isFinite(roles[rk].slots) || roles[rk].slots <= 0) {
           const roleSlots = await getRoleSlotsFromConfig(this.env, operationId, rk);
           if (Number.isFinite(roleSlots) && roleSlots > 0) {
-            roles[rk] = { slots: roleSlots, filled: Number(roles[rk]?.filled || 0) };
+            roles[rk].slots = roleSlots;
           }
+        }
+
+        // Normalize filled value
+        if (!Number.isFinite(roles[rk].filled) || roles[rk].filled < 0) {
+          roles[rk].filled = 0;
         }
       }
     }
@@ -88,11 +118,31 @@ export class RegistrationStore {
     await this.state.storage.put('roles', roles);
 
     const roleStatus = {};
+    let totalSlots = 0;
+    let totalFilled = 0;
     for (const [k, v] of Object.entries(roles)) {
-      roleStatus[k] = { slots: Number(v.slots || 0), filled: Number(v.filled || 0) };
+      const slots = Number(v.slots || 0);
+      const filled = Number(v.filled || 0);
+      roleStatus[k] = { slots, filled };
+      if (Number.isFinite(slots) && slots > 0) totalSlots += slots;
+      if (Number.isFinite(filled) && filled > 0) totalFilled += filled;
     }
 
-    return jsonResponse({ ok: true, operation_id: operationId || null, roles: roleStatus }, 200, '*');
+    return jsonResponse(
+      {
+        ok: true,
+        operation_id: operationId || null,
+        roles: roleStatus,
+        totals: {
+          slots_total: totalSlots,
+          slots_filled: totalFilled,
+          slots_remaining: Math.max(0, totalSlots - totalFilled),
+          pct_filled: totalSlots > 0 ? Math.round((totalFilled * 1000) / totalSlots) / 10 : 0,
+        }
+      },
+      200,
+      '*'
+    );
   }
 
   async _register(body) {

@@ -117,10 +117,13 @@ export default {
           return jsonResponse({ ok: false, message: 'Missing operation_id.' }, 400, allowOrigin);
         }
 
+        const roleKeysParam = url.searchParams.get('role_keys');
+        const roleKeysQs = roleKeysParam ? `&role_keys=${encodeURIComponent(String(roleKeysParam))}` : '';
+
         const id = env.REG_STORE.idFromName(String(operationId));
         const stub = env.REG_STORE.get(id);
 
-        const res = await stub.fetch(`https://do/status?operation_id=${encodeURIComponent(String(operationId))}`, {
+        const res = await stub.fetch(`https://do/status?operation_id=${encodeURIComponent(String(operationId))}${roleKeysQs}`, {
           method: 'GET',
           env: { OPS_CONFIG: env.OPS_CONFIG },
         });
