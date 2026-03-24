@@ -46,16 +46,17 @@ export class RegistrationStore {
   async _register(body) {
     const discord = String(body.discord).trim();
     const role = String(body.role).trim();
+    const roleKey = String(body.role_aircraft || '').trim() || (role + '|');
 
-    // roles structure: { [roleName]: { slots:number, filled:number } }
+    // roles structure: { [roleKey]: { slots:number, filled:number } }
     const roles = (await this.state.storage.get('roles')) || {};
     const regs = (await this.state.storage.get('regs')) || {};
 
     // Trusted role capacity (tamper-proof)
     // Prefer a more specific role key when available to disambiguate duplicate role names.
-    const roleKey = String(body.role_aircraft || '').trim() || role;
     let roleSlots = await getRoleSlotsFromConfig(this.env, body.operation_id, roleKey);
-    if (!Number.isFinite(roleSlots) && roleKey !== role) {
+    if (!Number.isFinite(roleSlots)) {
+      // Last-resort fallback: try plain role name (supports older OPS_CONFIG_JSON formats)
       roleSlots = await getRoleSlotsFromConfig(this.env, body.operation_id, role);
     }
 
@@ -66,24 +67,24 @@ export class RegistrationStore {
       if (allowClient) roleSlots = Number(body.role_slots);
     }
 
-    if (!roles[role]) {
+    if (!roles[roleKey]) {
       if (!Number.isFinite(roleSlots) || roleSlots <= 0) {
         return jsonResponse({ ok: false, message: 'Role capacity unknown. This operation is not configured.' }, 400, '*');
       }
-      roles[role] = { slots: roleSlots, filled: 0 };
+      roles[roleKey] = { slots: roleSlots, filled: 0 };
     }
 
     // Upsert logic: if existing registration exists, free previous role slot
     const previous = regs[discord];
-    if (previous && previous.role && roles[previous.role]) {
-      if (roles[previous.role].filled > 0) roles[previous.role].filled -= 1;
+    if (previous && previous.role_key && roles[previous.role_key]) {
+      if (roles[previous.role_key].filled > 0) roles[previous.role_key].filled -= 1;
     }
 
     // Enforce capacity
-    if (roles[role].filled >= roles[role].slots) {
+    if (roles[roleKey].filled >= roles[roleKey].slots) {
       // Revert previous decrement (if any)
-      if (previous && previous.role && roles[previous.role]) {
-        roles[previous.role].filled += 1;
+      if (previous && previous.role_key && roles[previous.role_key]) {
+        roles[previous.role_key].filled += 1;
       }
       await this.state.storage.put('roles', roles);
       await this.state.storage.put('regs', regs);
@@ -91,13 +92,14 @@ export class RegistrationStore {
     }
 
     // Reserve slot
-    roles[role].filled += 1;
+    roles[roleKey].filled += 1;
 
     // Save registration
     regs[discord] = {
       discord,
       callsign: String(body.callsign || '').trim(),
       role,
+      role_key: roleKey,
       aircraft: String(body.aircraft || '').trim(),
       experience: String(body.experience || '').trim(),
       notes: String(body.notes || '').trim(),
@@ -110,6 +112,6 @@ export class RegistrationStore {
     await this.state.storage.put('roles', roles);
     await this.state.storage.put('regs', regs);
 
-    return jsonResponse({ ok: true, result: { role_filled: roles[role].filled, role_slots: roles[role].slots } }, 200, '*');
+    return jsonResponse({ ok: true, result: { role_filled: roles[roleKey].filled, role_slots: roles[roleKey].slots } }, 200, '*');
   }
 }
