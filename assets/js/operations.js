@@ -182,6 +182,7 @@
 
   // On initial page load, best-effort refresh for all operation cards
   window.addEventListener('load', function () {
+    // Primary: cards with register buttons (Operations page)
     const buttons = document.querySelectorAll('.js-register-btn');
     buttons.forEach(function (btn) {
       const opId = btn.getAttribute('data-op-id');
@@ -189,6 +190,21 @@
 
       refreshOperationStatus(opId).then(function (live) {
         if (live && live.roles) updateOpCardUI(opId, live.roles, live.totals);
+      }).catch(function () { /* ignore */ });
+    });
+
+    // Secondary: homepage upcoming preview cards (no .js-register-btn)
+    const cards = document.querySelectorAll('.op-card[id]');
+    cards.forEach(function (card) {
+      const opId = card.getAttribute('id');
+      if (!opId) return;
+
+      // Avoid double-fetch if already fetched via a button on the same page
+      if (card.getAttribute('data-live-refreshed') === 'true') return;
+
+      refreshOperationStatus(opId).then(function (live) {
+        if (live && live.roles) updateOpCardUI(opId, live.roles, live.totals);
+        card.setAttribute('data-live-refreshed', 'true');
       }).catch(function () { /* ignore */ });
     });
   });
