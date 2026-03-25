@@ -189,7 +189,7 @@ extra_js:
         <div class="op-card__body" style="grid-template-columns: 1fr;">
           <div class="op-card__info">
             <ul class="op-card__meta-list">
-              <li class="op-card__meta-item"><span class="icon">📅</span> <strong>{{ op.date | date: "%a %-d %b %Y " }}</strong></li>
+              <li class="op-card__meta-item"><span class="icon">📅</span> <strong>{{ op.date | date: "%-d %b %Y " }}</strong></li>
               <li class="op-card__meta-item"><span class="icon">🕐</span> <strong>{{ op.time }}</strong></li>
               <li class="op-card__meta-item"><span class="icon">⏱</span> {{ op.duration }}</li>
               <li class="op-card__meta-item"><span class="icon">⚡</span> {{ op.difficulty }}</li>
