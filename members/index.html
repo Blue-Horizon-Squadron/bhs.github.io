@@ -43,10 +43,11 @@ description: "Meet the pilots of 607 VFW. Learn about our members, ranks, and ho
       <div class="member-card__avatar">{{ member.initials }}</div>
       <div class="member-card__name">"{{ member.callsign }}"</div>
       <div class="member-card__role">{{ member.role }}</div>
-      {% if member.squadron == "607VFW" %}
-      <div class="member-card__607">{{ member.squadron }}</div>
-      {% elseif member.squadron == "bhs" %}
-      <div class="member-card__bhs">{{ member.squadron }}</div>
+      {% if member.squadron == "607vfw" %}
+      <div class="member-card__607">607 Virtual Fighter Wing</div>
+      {% endif %}
+      {% if member.squadron == "bhs" %}
+      <div class="member-card__bhs">Blue Horizon Squadron</div>
       {% endif %}
       <!-- <div class="member-card__role">Aircraft</div>
       <div class="member-card__aircraft">
