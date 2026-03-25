@@ -127,7 +127,7 @@
     width: 72px;
     height: 72px;
     border-radius: 50%;
-    background: linear-gradient(135deg, $color-primary, $color-accent);
+    background: linear-gradient(135deg, $color-bg-card, $color-bg-secondary);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -140,7 +140,7 @@
   }
 
   &__name {
-    font-family: $font-heading;
+    // font-family: $font-heading;
     font-size: 1.05rem;
     color: $color-text-heading;
     margin-bottom: 4px;
