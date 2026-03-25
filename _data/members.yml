@@ -17,22 +17,22 @@
   status: "active"
 
 - callsign: "Lynx"
+  initials: "VX"
   role: "Manager"
   rank: "Air Commodore"
   squadron:
     - "607VFW" 
   joined: "2025-04-19"
   status: "active"
-  initials: "VX"
 
 - callsign: "Vaux"
+  initials: "DV"
   role: "Mission Designer"
   rank: "N/A"
   squadron:
     - "607VFW" 
   joined: "2025-04-22"
   status: "active"
-  initials: "DV"
 
 - callsign: "Deck"
   initials: "MD"
@@ -123,4 +123,3 @@
     - "bhs"
   joined: "2026-01-10"
   status: "active"
-
